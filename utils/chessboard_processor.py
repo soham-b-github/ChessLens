@@ -153,7 +153,10 @@ def resize_image(img):
 
 
 def process_chessboard(src_path, output_path, output_prefix="", debug=False):
-    src = cv2.imread(src_path)
+    try:
+        src = cv2.imread(src_path)
+    except:
+        src = src_path
 
     if src is None:
         sys.exit("There is no file with this path!")
@@ -284,3 +287,131 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+# ~ import math
+# ~ import operator
+# ~ import sys
+# ~ from collections import defaultdict
+
+# ~ import numpy as np
+# ~ import cv2
+# ~ from sklearn.cluster import KMeans
+
+
+# ~ def adaptive_canny(img):
+    # ~ median_val = np.median(img)
+    # ~ lower = int(max(0, 0.66 * median_val))
+    # ~ upper = int(min(255, 1.33 * median_val))
+    # ~ return cv2.Canny(img, lower, upper)
+
+
+# ~ def hough_lines(img):
+    # ~ rho, theta, thresh = 1, np.pi / 180, 150
+    # ~ lines = cv2.HoughLines(img, rho, theta, thresh)
+    # ~ return lines if lines is not None else np.array([])
+
+
+# ~ def filter_lines(lines):
+    # ~ """
+    # ~ Filters out short and redundant lines based on rho and theta similarity.
+    # ~ """
+    # ~ unique_lines = []
+    # ~ for rho, theta in lines.reshape(-1, 2):
+        # ~ if all(abs(rho - l[0]) > 20 or abs(theta - l[1]) > 0.1 for l in unique_lines):
+            # ~ unique_lines.append([rho, theta])
+    # ~ return np.array(unique_lines)
+
+
+# ~ def sort_lines(lines):
+    # ~ h, v = [], []
+    # ~ for rho, theta in lines:
+        # ~ if theta < np.pi / 4 or theta > np.pi - np.pi / 4:
+            # ~ v.append([rho, theta])
+        # ~ else:
+            # ~ h.append([rho, theta])
+    # ~ return h, v
+
+
+# ~ def calculate_intersections(h, v):
+    # ~ points = []
+    # ~ for rho1, theta1 in h:
+        # ~ for rho2, theta2 in v:
+            # ~ A = np.array([
+                # ~ [np.cos(theta1), np.sin(theta1)],
+                # ~ [np.cos(theta2), np.sin(theta2)]
+            # ~ ])
+            # ~ b = np.array([[rho1], [rho2]])
+            # ~ point = np.linalg.solve(A, b)
+            # ~ points.append((int(point[0]), int(point[1])))
+    # ~ return np.array(points)
+
+
+# ~ def cluster_points_kmeans(points, n_clusters=81):
+    # ~ kmeans = KMeans(n_clusters=n_clusters, n_init='auto', random_state=42)
+    # ~ kmeans.fit(points)
+    # ~ return kmeans.cluster_centers_.astype(int)
+
+
+# ~ def find_chessboard_corners(points):
+    # ~ bottom_right = max(points, key=lambda pt: pt[0] + pt[1])
+    # ~ top_left = min(points, key=lambda pt: pt[0] + pt[1])
+    # ~ bottom_left = min(points, key=lambda pt: pt[0] - pt[1])
+    # ~ top_right = max(points, key=lambda pt: pt[0] - pt[1])
+    # ~ return [top_left, top_right, bottom_left, bottom_right]
+
+
+# ~ def warp_image(img, corners):
+    # ~ top_left, top_right, bottom_left, bottom_right = corners
+    # ~ warp_src = np.array([top_left, top_right, bottom_right, bottom_left], dtype='float32')
+
+    # ~ side = max([
+        # ~ np.linalg.norm(np.subtract(bottom_right, top_right)),
+        # ~ np.linalg.norm(np.subtract(top_left, bottom_left)),
+        # ~ np.linalg.norm(np.subtract(bottom_right, bottom_left)),
+        # ~ np.linalg.norm(np.subtract(top_left, top_right))
+    # ~ ])
+
+    # ~ warp_dst = np.array([[0, 0], [side - 1, 0], [side - 1, side - 1], [0, side - 1]], dtype='float32')
+    # ~ matrix = cv2.getPerspectiveTransform(warp_src, warp_dst)
+    # ~ return cv2.warpPerspective(img, matrix, (int(side), int(side)))
+
+
+# ~ def cut_chessboard(img, output_path="boxes", prefix="box"):
+    # ~ tile_size = img.shape[0] // 8
+    # ~ for i in range(8):
+        # ~ for j in range(8):
+            # ~ tile = img[i*tile_size:(i+1)*tile_size, j*tile_size:(j+1)*tile_size]
+            # ~ cv2.imwrite(f"{output_path}/{prefix}-{i*8+j}.jpg", tile)
+
+
+# ~ def process_chessboard_from_frame(frame, output_path="boxes", prefix="box", debug=False):
+    # ~ frame = cv2.resize(frame, (800, 800)) if frame.shape[1] > 800 else frame
+    # ~ gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # ~ blur = cv2.GaussianBlur(gray, (5, 5), 0)
+
+    # ~ edges = adaptive_canny(blur)
+    # ~ dilated = cv2.dilate(edges, np.ones((3, 3), dtype=np.uint8))
+
+    # ~ raw_lines = hough_lines(dilated)
+    # ~ if raw_lines.shape[0] == 0:
+        # ~ raise ValueError("No lines detected")
+
+    # ~ lines = filter_lines(raw_lines)
+    # ~ h_lines, v_lines = sort_lines(lines)
+
+    # ~ if len(h_lines) < 9 or len(v_lines) < 9:
+        # ~ raise ValueError("Not enough lines for reliable board detection")
+
+    # ~ intersections = calculate_intersections(h_lines, v_lines)
+    # ~ if len(intersections) < 81:
+        # ~ raise ValueError("Insufficient intersections detected")
+
+    # ~ clustered_points = cluster_points_kmeans(intersections, 81)
+    # ~ corners = find_chessboard_corners(clustered_points)
+
+    # ~ warped = warp_image(frame, corners)
+    # ~ cut_chessboard(warped, output_path, prefix)
+
+    # ~ return warped  # You can display or save this warped board
