@@ -135,7 +135,10 @@ def cut_chessboard(img, output_path="boxes", output_prefix="box"):
             tile = img[row_ind1:row_ind2, col_ind1:col_ind2]
             box_idx = j + i * 8
             if  box_idx <= 15 or box_idx >= 48:
-                cv2.imwrite(output_path +"/"+ output_prefix + "-" + str(j + i * 8) + "-true.jpg", tile)
+                if box_idx < 10:
+                    cv2.imwrite(output_path +"/"+ output_prefix + "-0" + str(j + i * 8) + "-true.jpg", tile)
+                else:
+                    cv2.imwrite(output_path +"/"+ output_prefix + "-" + str(j + i * 8) + "-true.jpg", tile)
             else:
                 cv2.imwrite(output_path +"/"+ output_prefix + "-" + str(j + i * 8) + ".jpg", tile)
 
