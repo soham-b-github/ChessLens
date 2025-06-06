@@ -38,7 +38,3 @@ This project was done by the team "<b>BSB64 </b>", whose team members are: <br>
 -- BSB64<br>
     &nbsp;&nbsp;&nbsp;April 28, 2025
 <br>
-
-<p>
-  <img src="./utils/logo.png" alt="ChessLens Logo" width="50"/>
-</p>
