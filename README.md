@@ -27,7 +27,7 @@ This repository contains the report, slides, and jupyter notebook and related co
 - **python-chess** – FEN management & move legality
 
 ## Contributors
-This project was done by the team "<b>BSB64 </b>", whose team members are: <br>
+This project was done by the team <b>BSB64</b>, whose team members are: <br>
 #### [Darpan Bhattacharya](https://www.linkedin.com/in/darpan-bhattacharya/), [Ronak Sarkar](https://www.linkedin.com/in/r-sarkar-122a6130b/) and [Soham Bhattacharya](https://www.linkedin.com/in/bhattacharyasoham026/)
 
 
