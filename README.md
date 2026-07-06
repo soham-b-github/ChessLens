@@ -16,8 +16,7 @@ infrastructure.
 Achieved an accuracy of 93.75%.
 
 ## Course Project Details
-This repository contains the report, slides, and jupyter notebook and related code files for the <b>final course project</b> of the <b>Computer Vision (CS342)</b> offered at 
-<b>Ramakrishna Mission Vivekananda Educational and Research Institute, Belur</b> as a part of the <b>Master of Science in Big Data Analytics</b> program. <br>
+This repository contains the report, slides, and jupyter notebook and related code files for the <b>final course project</b> of the <b>Computer Vision (CS342)</b> course offered at <b>Ramakrishna Mission Vivekananda Educational and Research Institute, Belur</b> as a part of the <b>Master of Science in Big Data Analytics</b> programme. <br>
 
 ## Technologies used
 - **Python 3.12**
@@ -29,14 +28,10 @@ This repository contains the report, slides, and jupyter notebook and related co
 
 ## Contributors
 This project was done by the team "<b>BSB64 </b>", whose team members are: <br>
-* Darpan Bhattacharya, [LinkedIn](https://www.linkedin.com/in/darpan-bhattacharya/)
-* Ronak Sarkar, [LinkedIn](https://www.linkedin.com/in/r-sarkar-122a6130b/) and
-* Soham Bhattacharya, [LinkedIn](https://www.linkedin.com/in/bhattacharyasoham026/)
-  M.Sc. Big Data Analytics
+#### [Darpan Bhattacharya](https://www.linkedin.com/in/darpan-bhattacharya/), [Ronak Sarkar](https://www.linkedin.com/in/r-sarkar-122a6130b/) and [Soham Bhattacharya](https://www.linkedin.com/in/bhattacharyasoham026/)
 
 
--- BSB64<br>
-    &nbsp;&nbsp;&nbsp;April 28, 2025
+- April 28, 2025
 <br>
 
 <p>
